@@ -20,7 +20,7 @@ hook() {
 if test $# -gt 0; then
   version=$1
   shift #remove version from arguments list
-  remote=''
+  remote='origin'
   hook pre-release
   echo "... releasing $version"
   # check for flags
@@ -40,8 +40,7 @@ if test $# -gt 0; then
   fi
   git commit -a -m "$msg"
   git tag $version -a -m "$msg" \
-    && git push $remote \
-    && git push $remote --tags \
+    && git push $remote HEAD --tags \
     && hook post-release \
     && echo "... complete"
 else
